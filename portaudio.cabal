@@ -1,0 +1,42 @@
+name:           portaudio
+version:        0.0
+cabal-version:  >= 1.4
+build-type:     Simple
+license:        MIT
+license-file:   LICENSE
+copyright:      (c) 2009 Mietek Bak
+author:         Mietek Bak
+maintainer:     mietek@gmail.com
+stability:      experimental
+homepage:       http://github.com/mietek/portaudio
+bug-reports:    http://github.com/mietek/portaudio/issues
+package-url:    http://github.com/mietek/portaudio/tarball/0.0
+synopsis:       A Haskell binding to the PortAudio library.
+description:    TODO
+category:       Sound
+
+library
+  exposed-modules:   Sound.PortAudio
+  build-depends:     base >= 3
+  ghc-options:       -Wall -O2 -funbox-strict-fields
+  ghc-prof-options:  -prof -auto-all
+  includes:          portaudio.h
+  extra-libraries:   portaudio
+                     
+flag examples        
+  description:       Build example programs.
+  default:           False
+                     
+executable play      
+  main-is:           Play.hs
+  other-modules:     Sound.PortAudio
+  build-depends:     base >= 3
+  ghc-options:       -Wall -O2 -funbox-strict-fields -threaded
+  ghc-prof-options:  -prof -audio-all
+  includes:          portaudio.h
+  extra-libraries:   portaudio
+  hs-source-dirs:    . examples
+  if flag(examples)  
+    buildable:       True
+  else               
+    buildable:       False
